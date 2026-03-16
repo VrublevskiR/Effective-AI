@@ -1,0 +1,30 @@
+; Q4.4: a = 2.5 (0x28), b = 1.25 (0x14)
+JMP start
+
+a_val:
+    DB 0x28
+b_val:
+    DB 0x14
+sum:
+    DB 0
+diff:
+    DB 0
+
+start:
+    MOV A, [a_val]
+    MOV B, [b_val]
+
+    ; c = a + b
+    MOV C, 0
+    ADD C, A
+    ADD C, B
+
+    ; d = a - b
+    MOV D, A
+    SUB D, B
+
+    ; сохранение
+    MOV [sum], C
+    MOV [diff], D
+
+    HLT
