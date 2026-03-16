@@ -1,0 +1,14 @@
+; Обратный отсчёт: 5 4 3 2 1 0
+    MOV A, 232    ; console start
+    MOV B, 5      ; счётчик
+
+    ADD B, 48
+    
+   .loop:
+    MOV [A], B
+    INC A
+    DEC B
+    CMP B, 47
+    JNZ .loop
+
+    HLT
