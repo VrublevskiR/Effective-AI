@@ -1,0 +1,54 @@
+	JMP start
+vec_a:
+	DB 3, 5, 2
+vec_b:
+	DB 4, 1, 6
+len:
+	DB 3
+start:
+	MOV B, 0      ; результат
+	MOV C, 0      ; индекс
+
+
+.loop:
+      MOV D, vec_a
+      ADD D, C
+    	PUSH [D]
+   	  MOV D, vec_b
+  	  ADD D, C
+ 	    PUSH [D]
+      POP A
+      POP D
+    	MUL D
+    	ADD B, A
+      INC C
+    	CMP C, [len]
+    	JNZ .loop
+
+	    MOV C, 0
+    	MOV D, 232
+    
+    	.num_of_symbols:
+    	INC C
+    	DIV 10
+    	JNZ .num_of_symbols
+
+  
+    	ADD D, C 
+    	DEC D ; указатель на младший разряд
+    
+    	MOV A, B
+    	.print:
+    	DIV 10
+    	MUL 10
+    	SUB B, A
+    	ADD B, 48
+    	MOV [D], B
+    	DEC D
+    	DEC C
+   	  DIV 10
+     	MOV B, A
+   	  CMP C, 0
+    	JNZ .print
+   	 
+	HLT
