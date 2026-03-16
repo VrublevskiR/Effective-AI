@@ -1,0 +1,46 @@
+	JMP start
+data:
+	DB 10, 20, 30, 15, 25
+len:
+	DB 5
+start:
+	MOV A, 0      ; сумма
+	MOV B, data   ; указатель
+	MOV C, [len]  ; счётчик
+
+    ; сумма массива
+    .loop:
+    ADD A, [B]
+    INC B
+    DEC C
+    JNZ .loop
+
+
+    MOV B, A
+    MOV C, 0
+    MOV D, 232
+    
+    .num_of_symbols:
+    INC C
+    DIV 10
+    JNZ .num_of_symbols
+
+  
+    ADD D, C 
+    DEC D ; указатель на младший разряд
+    
+    MOV A, B
+    .print:
+    DIV 10
+    MUL 10
+    SUB B, A
+    ADD B, 48
+    MOV [D], B
+    DEC D
+    DEC C
+    DIV 10
+    MOV B, A
+    CMP C, 0
+    JNZ .print
+    
+	HLT
