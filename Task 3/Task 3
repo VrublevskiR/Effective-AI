@@ -1,0 +1,83 @@
+; Алгоритм:
+;   1. Найти 1/b методом Ньютона-Рафсона
+;   2. result = a * (1/b)
+;
+; Итерация Ньютона для f(y) = 1/y − b:
+;   y_{n+1} = y_n · (2 − b · y_n)
+;
+; Начальное приближение: b·y0 < 2
+
+    JMP start
+
+a_val:  DB 0x0C   ; a
+b_val:  DB 0x06   ; b 
+inv_b:  DB 0x00   ; 1/b
+result: DB 0x00   ; a/b
+
+start:
+    ; начальное приближение y0 
+    MOV B, [b_val]
+
+    MOV A, 11          
+    CMP B, 2
+    JC save_y0         
+
+    MOV A, 6           
+    CMP B, 4
+    JC save_y0         
+
+    MOV A, 4           
+    CMP B, 6
+    JC save_y0         
+
+    MOV A, 3           
+    CMP B, 7
+    JC save_y0         
+
+    MOV A, 2           
+    CMP B, 10
+    JC save_y0         
+
+    MOV A, 1           
+
+save_y0:
+    MOV [inv_b], A
+
+    ; итерации Ньютона 
+    CALL newton_step
+    CALL newton_step
+    CALL newton_step
+    CALL newton_step
+
+    MOV A, [a_val]
+    MUL [inv_b]        ; A = a_raw * inv_b_raw  (Q4.4)
+    SHR A, 2           ; A = результат в Q2.2
+    MOV [result], A
+
+    HLT
+
+newton_step:
+    ; b · y
+    MOV A, [b_val]
+    MUL [inv_b]        
+    SHR A, 2          
+
+    MOV B, 8
+    SUB B, A           
+    JC ns_exit         
+
+    ; y · (2 − b·y) 
+    MOV A, [inv_b]
+    MUL B              
+    SHR A, 2           
+
+    ;округление вниз до 0 при очень малом y
+    CMP A, 0
+    JNZ ns_save
+    INC A              
+
+ns_save:
+    MOV [inv_b], A
+
+ns_exit:
+    RET
