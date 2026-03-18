@@ -1,0 +1,44 @@
+; Вариант 6: Ошибка квантизации 
+JMP start
+
+vec_in:
+    DB 0x00, 0x3C ; 1.0 в fp16 
+    DB 0x00, 0x40 ; 2.0 в fp16 
+    DB 0x00, 0x42 ; 3.0 в fp16 
+    DB 0x00, 0x44 ; 4.0 в fp16 
+
+vec_out:
+    DB 0x00, 0x00
+    DB 0x00, 0x00
+    DB 0x00, 0x00
+    DB 0x00, 0x00
+
+start:
+    MOV B, vec_in      
+    MOV C, vec_out     
+    MOV D, 4           
+
+loop:
+  
+    FMOV.H FHA, [B]    
+    
+    FMOV.H FHB, FHA    ; бэкап
+    
+    FCVT.O3.H FQA, FHA ; квантизация 
+                           
+    FCVT.H.O3 FHA, FQA ; деквантизация
+    
+    FSUB.H FHA, FHB    ; вычисление ошибки
+    FABS.H FHA         
+    
+    FMOV.H [C], FHA    
+    
+    INC B
+    INC B
+    INC C
+    INC C
+    
+    DEC D              
+    JNZ loop           
+    
+    HLT  
