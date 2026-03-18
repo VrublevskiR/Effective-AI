@@ -1,10 +1,10 @@
-# Решения заданий курса Effective AI
+# Effective AI Course Solutions
 
-В данном репозитории собраны выполненные домашние задания и контрольная работа по курсу **Effective AI**.
+This repository contains the completed homework assignments and control work for the **Effective AI** course.
 
-## Структура репозитория
+## Repository Structure
 
-* 📂 **[Task 1](./Task%201)** — Обратный отсчет, сумма массива, скалярное произведение.
-* 📂 **[Task 2](./Task%202)** — Реализация сложения, вычитания и умножения числа с фиксированной точкой. 
-* 📂 **[Task 3](./Task%203)** — Реализация метода Ньютона для нахождения обратного числа с фиксированной точкой.
-* 📂 **[Control work](./Control%20work)** — Контрольная работа: реализация квантования.
+* 📂 **[Task 1](./Task%201)** — Countdown, array sum, and dot product.
+* 📂 **[Task 2](./Task%202)** — Implementation of fixed-point addition, subtraction, and multiplication. 
+* 📂 **[Task 3](./Task%203)** — Implementation of Newton's method for finding the inverse of a fixed-point number.
+* 📂 **[Control work](./Control%20work)** — Control work: implementation of quantization.
