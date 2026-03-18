@@ -1,6 +1,6 @@
 # Effective AI Course Solutions
 
-This repository contains the completed homework assignments and control work for the **Effective AI** course.
+This repository contains the completed homework assignments and control work for the **[Effective AI](https://korikov.cc/teaching/2026-mipt-effective-ai-2026/)** course.
 
 ## Repository Structure
 
