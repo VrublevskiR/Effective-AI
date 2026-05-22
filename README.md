@@ -11,6 +11,6 @@ This repository contains the completed homework assignments and control work for
 * 📂 **[task 5](./task%205)** — Vector Unit (VU) tasks: vectorized operations for array sum, dot product, matrix-vector multiplication, and Softmax.
 * 📂 **[task 6](./task%206)** — Implementation of a simple MLP for MNIST: training in FP32, evaluation, and exporting weights in FP16.
 * 📂 **[task 7](./task%207)** — Implementation of the SmoothQuant algorithm for outlier smoothing in LLMs.
-* 📂 **[task 8](./task%208)** — Minimal causal Transformer (Induction Heads) for autoregressive sequence repetition.
+* 📂 **[task 8](./task%208)** — Causal Transformer for autoregressive sequence repetition.
 * 📂 **[Control work](./Control%20work)** — Control work: implementation of quantization.
-* 📂 **[Computational Essay](./Computational%20Essay)** — Essay on the topic.
+* 📂 **[Computational Essay](./Computational%20Essay)** — Essay on the topic Streaming LLM.
