@@ -1,0 +1,31 @@
+JMP calculate
+
+arg_x: DB 1.0_h
+ans_e: DB 0.0_h
+
+; Коэффициенты разложения 1/1, 1/2, 1/6, 1/24
+k0: DB 1.0_h
+k2: DB 0.5_h
+k3: DB 0.166667_h
+k4: DB 0.0416667_h
+
+calculate:
+    FMOV.H FHA, [arg_x]     
+
+    ; Вычисляем по схеме Горнера: 1 + x*(1 + x*(1/2 + x*(1/6 + x*(1/24))))
+    FMOV.H FHD, [k4]        
+
+    FMUL.H FHD, FHA         
+    FADD.H FHD, [k3]        
+
+    FMUL.H FHD, FHA         
+    FADD.H FHD, [k2]        
+
+    FMUL.H FHD, FHA         
+    FADD.H FHD, [k0]        
+
+    FMUL.H FHD, FHA         
+    FADD.H FHD, [k0]        
+
+    FMOV.H [ans_e], FHD     
+    HLT

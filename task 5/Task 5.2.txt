@@ -1,0 +1,42 @@
+JMP main
+
+m_rows:    DB 2
+n_cols:    DB 3
+
+mat_data:  DB 1.0_o3, 2.0_o3, 0.5_o3
+           DB 1.5_o3, 1.0_o3, 2.0_o3
+vec_data:  DB 2.0_o3, 1.0_o3, 1.5_o3
+res_h:     DB 0.0_h, 0.0_h
+
+; Временные буферы для float16
+vec_h:     DB 0.0_h, 0.0_h, 0.0_h
+row_h:     DB 0.0_h, 0.0_h, 0.0_h
+
+main:
+    MOV C, [m_rows]        
+    MOV D, [n_cols]
+    VSET VL, D             
+
+    
+    VSET VA, vec_data
+    VSET VM, vec_h 
+    VCVT.H.O3 VM, VA
+
+
+    VSET VA, mat_data
+    VSET VC, res_h   
+
+matrix_loop:
+
+    VSET VB, row_h
+    VCVT.H.O3 VB, VA
+
+    VSET VB, row_h
+    VSET VM, vec_h
+    VDOT.H VC, VB, VM  
+
+    DEC C  
+    JNZ matrix_loop
+
+    VWAIT
+    HLT

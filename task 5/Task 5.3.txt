@@ -1,0 +1,42 @@
+JMP main
+
+num_items: DB 3
+logits:    DB 1.0_h, 2.0_h, 0.5_h
+
+res_probs: DB 0.0_h, 0.0_h, 0.0_h
+val_max:   DB 0.0_h
+val_sum:   DB 0.0_h
+
+main:
+    MOV A, [num_items]
+    VSET VL, A
+
+    
+    VSET VA, logits
+    VSET VC, val_max
+    VMAX.H.r VC, VA
+    
+    VWAIT 
+
+    VSET VA, logits
+    VSET VB, val_max
+    VSET VC, res_probs
+    VSUB.H.vs VC, VA, VB
+
+    VSET VA, res_probs
+    VSET VC, res_probs
+    VEXP.H VC, VA
+
+    VSET VA, res_probs
+    VSET VC, val_sum
+    VADD.H.r VC, VA
+    
+    VWAIT            
+
+    VSET VA, res_probs
+    VSET VB, val_sum
+    VSET VC, res_probs
+    VDIV.H.vs VC, VA, VB
+    
+    VWAIT
+    HLT

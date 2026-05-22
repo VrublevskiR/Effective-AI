@@ -1,0 +1,29 @@
+JMP init
+
+vec_x:  DB 2.0_o3, 3.0_o3, 1.5_o3
+vec_y:  DB 1.75_o3, 1.0_o3, 2.5_o3
+result: DB 0.0_h
+
+init:
+    MOV A, vec_x
+    MOV B, vec_y
+    MOV C, 3
+    FMOV.H FHA, [result]  
+
+calc_loop:
+    FMOV.O3 FQC, [A]      
+    FMOV.O3 FQG, [B]      
+ 
+    FCVT.H.O3 FHC, FQC    
+    FCVT.H.O3 FHD, FQG    
+ 
+    FMUL.H FHC, FHD       
+    FADD.H FHA, FHC       
+ 
+    INC A
+    INC B
+    DEC C                 
+    JNZ calc_loop         
+
+    FMOV.H [result], FHA
+    HLT

@@ -1,0 +1,39 @@
+JMP main
+
+len:      DB 5
+vec_x:    DB 3, 5, 2, 4, 1
+vec_y:    DB 4, 1, 6, 2, 3
+out_val:  DB 0
+
+buf_x:    DB 0,0, 0,0, 0,0, 0,0, 0,0
+buf_y:    DB 0,0, 0,0, 0,0, 0,0, 0,0
+dot_h:    DB 0,0
+
+main:
+    MOV C, [len]
+    VSET VL, C
+
+    VSET VA, vec_x
+    VSET VC, buf_x
+    VCVT.H.U VC, VA
+
+    VSET VA, vec_y
+    VSET VC, buf_y
+    VCVT.H.U VC, VA
+    
+    VWAIT     
+
+    VSET VA, buf_x
+    VSET VB, buf_y
+    VSET VC, dot_h
+    VDOT.H VC, VA, VB
+    VWAIT
+
+    VSET VL, 1
+    VSET VA, dot_h
+    VSET VC, out_val
+    VCVT.U.H VC, VA
+    VWAIT
+
+    MOV A, [out_val]
+    HLT

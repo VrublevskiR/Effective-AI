@@ -1,0 +1,18 @@
+JMP main
+
+arr_vals: DB 10, 20, 30, 15, 25, 40, 10, 5, 35, 10
+arr_len:  DB 10
+out_sum:  DB 0
+
+main:
+    MOV B, [arr_len]       
+    VSET VL, B             
+    
+    VSET VA, arr_vals      
+    VSET VC, out_sum       
+    
+    VADD.U.r VC, VA        
+    VWAIT                  
+    
+    MOV A, [out_sum]       
+    HLT
